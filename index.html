@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#172420">
+  <meta name="description" content="중앙대학교 310관 외부와 1층 로비를 탐색하는 모바일 등각 맵 프로토타입">
+  <title>310관 산책 · CAU 100주년기념관</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app">
+    <canvas id="game" aria-label="310관 탐색 게임 화면"></canvas>
+
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">CAU CAMPUS WALK</p>
+        <h1 id="place">310관 · 야외 광장</h1>
+      </div>
+      <button id="helpButton" class="icon-button" aria-label="도움말 열기">?</button>
+    </header>
+
+    <div id="objective" class="objective" role="status">
+      <span class="objective-dot"></span>
+      <span id="objectiveText">빛나는 입구까지 걸어가세요</span>
+    </div>
+
+    <button id="actionButton" class="action-button" hidden>
+      <span id="actionIcon">↗</span><span id="actionText">들어가기</span>
+    </button>
+
+    <div id="joystick" class="joystick" aria-label="이동 조이스틱">
+      <div class="joystick-ring"></div>
+      <div id="stick" class="joystick-stick"></div>
+    </div>
+
+    <p class="desktop-hint">이동 <kbd>WASD</kbd> <kbd>방향키</kbd> · 상호작용 <kbd>Space</kbd></p>
+
+    <section id="sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+      <div class="sheet-card">
+        <button id="closeSheet" class="sheet-close" aria-label="닫기">×</button>
+        <p id="sheetKicker" class="sheet-kicker">HISTORY WALL</p>
+        <h2 id="sheetTitle">100년의 발자취</h2>
+        <p id="sheetBody">이 전시는 중앙대학교의 역사를 소개하는 프로토타입 상호작용 지점입니다.</p>
+        <p id="sheetNote" class="sheet-note">※ 실내 위치와 전시 내용은 검증 전 임시 구성입니다.</p>
+        <button id="sheetConfirm" class="primary-button">계속 둘러보기</button>
+      </div>
+    </section>
+
+    <section id="help" class="sheet" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden>
+      <div class="sheet-card compact">
+        <button id="closeHelp" class="sheet-close" aria-label="닫기">×</button>
+        <p class="sheet-kicker">HOW TO PLAY</p>
+        <h2 id="helpTitle">310관을 탐색해 보세요</h2>
+        <ul class="help-list">
+          <li><span>◉</span><div><strong>이동</strong><br>왼쪽 조이스틱을 밀거나 키보드를 사용하세요.</div></li>
+          <li><span>✦</span><div><strong>상호작용</strong><br>빛나는 대상 가까이에서 버튼을 누르세요.</div></li>
+          <li><span>◆</span><div><strong>목표</strong><br>외부 입구를 지나 1층 히스토리 월을 찾아보세요.</div></li>
+        </ul>
+        <button id="helpConfirm" class="primary-button">출발하기</button>
+      </div>
+    </section>
+
+    <div id="transition" class="transition" aria-hidden="true"><div class="transition-mark">CAU<br><small>310</small></div></div>
+    <noscript>이 게임은 JavaScript가 필요합니다.</noscript>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
