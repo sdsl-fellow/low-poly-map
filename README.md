@@ -12,7 +12,7 @@
 python3 -m http.server 8080
 ```
 
-브라우저에서 `http://localhost:8080`에 접속합니다. 모바일은 화면 왼쪽 조이스틱과 오른쪽 상호작용 버튼을, 데스크톱은 WASD/방향키와 Space를 사용합니다.
+브라우저에서 `http://localhost:8080`에 접속합니다. 모바일과 데스크톱 모두 바닥을 터치/클릭해 이동합니다. 입구·전시·출구 표식을 선택하면 이동 후 상호작용합니다. WASD/방향키와 Space도 사용할 수 있습니다.
 
 ## GitHub Pages
 
@@ -39,7 +39,7 @@ Repository Settings → Pages → **Deploy from a branch**에서 `main` / `(root
 ## 구현 및 테스트
 
 - 반응형 Canvas 기반 등각 투영, 외부/실내 2개 장면
-- 원형 모바일 조이스틱, 키보드 대체 조작
+- 터치 목적지 이동, 장애물 우회 경로 탐색, 키보드 대체 조작
 - 바닥 경계·건물·가구 충돌(AABB)과 벽 통과 방지
 - 입구/출구 근접 상호작용, 장면 전환, 히스토리 월 안내 패널
 - 계정, 개인정보, Google Sheets, Apps Script, 외부 분석 도구 없음
@@ -50,7 +50,7 @@ Repository Settings → Pages → **Deploy from a branch**에서 `main` / `(root
 | 항목 | 기대 결과 |
 |---|---|
 | 360 × 800 세로 화면 | UI가 안전 영역 안에 표시되고 게임 화면이 잘리지 않음 |
-| 터치 이동 | 조이스틱 드래그 방향으로 이동, 놓으면 즉시 정지 |
+| 터치 이동 | 터치한 목적지로 이동, 다시 터치하면 새 경로로 변경 |
 | 외부 → 입구 | 건물/화단을 통과하지 않고 입구 근처에서 `들어가기` 표시 |
 | 장면 전환 | 암전 연출 뒤 1층 로비와 새 목표 표시 |
 | 실내 탐색 | 벽·데스크·벤치를 통과하지 않음 |
@@ -63,5 +63,20 @@ Repository Settings → Pages → **Deploy from a branch**에서 `main` / `(root
 ## 구조
 
 - `index.html` — 접근 가능한 UI와 패널
-- `styles.css` — 모바일 안전 영역, 조이스틱, 전환 및 안내 UI
+- `styles.css` — 모바일 안전 영역, 전환 및 안내 UI
 - `game.js` — 등각 렌더링, 이동, 충돌, 장면/상호작용 상태
+
+## 2026-09-26 · Architectural revision / tap to walk
+
+- Replaced the joystick with Pointer Events tap/click navigation. The walkable grid is searched for reachable cells, paths are smoothed only with collision-clear segments, and a second tap replaces the current destination. An obstructed destination snaps to the nearest reachable cell. Character clearance prevents corner cutting.
+- Entrance, exhibit and exit labels accept taps: walk to the label, then interact on arrival. WASD/arrows and Space remain available. Focus loss clears input.
+- Exterior: stepped limestone mass, repeated vertical windows, horizontal glazed band, glazed lower level, roof terrace planting and broad lateral stairs.
+- Lobby: pale tiled floor, tall columns, partial upper gallery with glass railings, restrained timber tones and a dark blue-grey donor plaque wall.
+- Reference photographs were viewed during the revision. No reference photographs are bundled as game assets; all architecture is rendered as original Canvas geometry.
+  - [Exterior photograph showing building number 310](https://www.thongtinduhochanquoc.com/content/images/2023/05/c71a6cbaeecb8ccd9ef035f790957a0b.jpeg), published in [Chung-Ang campus overview](https://www.thongtinduhochanquoc.com/truong-dai-hoc-chung-ang-han-quoc/).
+  - [IOHSK conference venue gallery](https://www.iohsk.net/conference-rooms), specifically [DONORS WALL and upper gallery photograph](https://images.squarespace-cdn.com/content/v1/6931f7de6fc8645158be5897/6ea8df3a-e55e-4a40-89f5-cd958af74af5/514330631_1040057014941344_1656635833624135281_n.jpg).
+- The source gallery covers several campus locations; its photo does not establish a surveyed first-floor plan. The scene is an architectural interpretation, with adapted proportions and a provisional layout. The former history panel is now labelled as a donor-wall-inspired memorial exhibit; plaque text and actual historical exhibits are not invented.
+
+### Revision verification
+
+`node --check game.js` and `git diff --check` passed. A Node VM running the actual game loop with a native Canvas renderer exercised pointer taps at 390×844, 1200×900 and 844×390. Entrance → lobby → exhibit → exit passed at all three sizes; obstacle-target navigation completed without entering collision geometry. Rendered scenes were inspected. This is a simulation of the Canvas logic, not an iOS/Android browser test. Browser automation could not start because its Chromium download failed; actual device testing remains pending.
