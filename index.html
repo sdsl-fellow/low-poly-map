@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#172420">
   <meta name="description" content="중앙대학교 310관 외부와 1층 로비를 탐색하는 모바일 등각 맵 프로토타입">
   <title>310관 산책 · CAU 100주년기념관</title>
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
   <main id="app">
@@ -15,14 +15,14 @@
     <header class="topbar">
       <div>
         <p class="eyebrow">CAU CAMPUS WALK</p>
-        <h1 id="place">310관 · 야외 광장</h1>
+        <h1 id="place">310관 · 캠퍼스 산책</h1>
       </div>
       <button id="helpButton" class="icon-button" aria-label="도움말 열기">?</button>
     </header>
 
     <div id="objective" class="objective" role="status">
       <span class="objective-dot"></span>
-      <span id="objectiveText">입구 표식을 터치하면 안으로 이동합니다</span>
+      <span id="objectiveText">303관 방향 입구를 터치해 들어가세요</span>
     </div>
 
     <button id="actionButton" class="action-button" hidden>
@@ -30,7 +30,9 @@
     </button>
 
     <div class="zoom-controls" aria-label="맵 크기"><button id="zoomOut" aria-label="맵 축소">−</button><button id="zoomIn" aria-label="맵 확대">+</button></div>
-    <p class="move-hint">바닥을 터치해 이동 · 표식을 터치해 둘러보기</p>
+    <div class="view-controls"><button id="fitMap">전체 보기</button><button id="planMap">배치도</button></div>
+    <p class="move-hint">터치하여 이동 · 드래그하여 지도 이동</p>
+    <a class="map-credit" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">지도 윤곽 © OpenStreetMap</a>
 
     <section id="sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
       <div class="sheet-card">
@@ -60,6 +62,7 @@
     <div id="transition" class="transition" aria-hidden="true"><div class="transition-mark">CAU<br><small>310</small></div></div>
     <noscript>이 게임은 JavaScript가 필요합니다.</noscript>
   </main>
-  <script src="game.js?v=2"></script>
+  <script src="site-data.js?v=3"></script>
+  <script src="game.js?v=3"></script>
 </body>
 </html>

@@ -56,3 +56,8 @@ h1 { font-size:19px; font-weight:600; }
 .zoom-controls { position:absolute; left:20px; bottom:calc(68px + env(safe-area-inset-bottom)); display:flex; gap:4px; padding:4px; border:1px solid #afbfba60; border-radius:24px; background:#ffffffc9; }
 .zoom-controls button { width:36px; height:36px; border:0; background:transparent; color:#426b71; font-size:23px; border-radius:50%; }
 .zoom-controls button:active {background:#dce7e1;}
+
+.view-controls {position:absolute;right:20px;bottom:calc(122px + env(safe-area-inset-bottom));display:flex;gap:5px;}
+.view-controls button {border:1px solid #afbfba60;background:#ffffffe0;border-radius:20px;padding:9px 12px;color:#426b71;font-size:11px;}
+.map-credit {position:absolute;bottom:calc(5px + env(safe-area-inset-bottom));right:12px;color:#61776d;font-size:8px;text-decoration:none;}
+.move-hint {bottom:calc(26px + env(safe-area-inset-bottom));}

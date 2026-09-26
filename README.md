@@ -80,3 +80,14 @@ Repository Settings → Pages → **Deploy from a branch**에서 `main` / `(root
 ### Revision verification
 
 `node --check game.js` and `git diff --check` passed. A Node VM running the actual game loop with a native Canvas renderer exercised pointer taps at 390×844, 1200×900 and 844×390. Entrance → lobby → exhibit → exit passed at all three sizes; obstacle-target navigation completed without entering collision geometry. Rendered scenes were inspected. This is a simulation of the Canvas logic, not an iOS/Android browser test. Browser automation could not start because its Chromium download failed; actual device testing remains pending.
+
+## 위성·지도·사진 통합 개편
+
+이제 외부 맵은 310관 하나를 평지에 놓은 구성이 아닙니다. 위성영상과 지도 데이터를 대조해 310관의 굽은 본체, 주변 303·305·208·308관, 교내 도로와 보행광장, 계단 중심선을 반영합니다. 상부의 303관 방향 입구에서 시작하며, 계단을 따라 테라스와 하부 광장을 걸어볼 수 있습니다.
+
+- `site-data.js`: 건물 윤곽 및 보행·도로 좌표. © OpenStreetMap contributors, ODbL 1.0.
+- `docs/SITE_SOURCES.md`: 확인한 자료, 확인 범위, 추정 요소, 좌표 기준.
+- `tests/smoke.js`: 설치 없이 `node tests/smoke.js`로 이동·단차·터치 좌표 검증.
+- 바닥 터치: 목적지 이동. 드래그: 외부 지도 이동. `전체 보기`: 화면 맞춤. `배치도`: 북쪽이 위인 지도 보기. `+`/`−`: 확대·축소.
+
+정밀 측량 모델은 아닙니다. 외부 수평 배치는 지도 좌표를 사용하고, 높이·계단 폭·정원 세부와 실내 평면은 축약 또는 임시 표현입니다. 앞의 초기 구현 기록보다 이 절과 SITE_SOURCES.md의 설명을 우선합니다.
